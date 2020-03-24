@@ -1,0 +1,49 @@
+{
+  "name": "plugin-installer",
+  "version": "0.0.1",
+  "description": "A Twilio-CLI plugin for installing and uninstalling Twilio apps",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/jesperfj/plugin-installer",
+  "scripts": {
+    "test": "TZ=utc jest",
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "lint": "eslint .",
+    "posttest": "npm run lint"
+  },
+  "author": "Jesper Joergensen",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.14.0",
+    "@twilio-labs/serverless-api": "^1.0.3",
+    "@twilio/cli-core": "^4.4.6"
+  },
+  "files": [
+    "/oclif.manifest.json",
+    "/src",
+    "/package-lock.json"
+  ],
+  "oclif": {
+    "name": "installer",
+    "commands": "./src/commands",
+    "bin": "twilio",
+    "devPlugins": [
+      "@oclif/plugin-help"
+    ],
+    "topics": {
+      "installer": {
+        "description": "A plugin to install and uninstall collections of Twilio resources"
+      },
+      "installer:install": {
+        "description": "Installs resources specified in ./installer.js"
+      },
+      "installer:uninstall": {
+        "description": "Uninstalls resources specified in ./installer.js"
+      }
+    }
+  }
+}
