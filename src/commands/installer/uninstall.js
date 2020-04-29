@@ -8,10 +8,11 @@ class UninstallCommand extends TwilioClientCommand {
     try {
       await super.run();
       const appInfo = await h.getAppInfo.call(this)
+      const twilioapp = await h.getTwilioAppFromFunctionsFile(this.twilioClient)
       const projectInstaller = require(path.join(process.cwd(),"installer.js"))
-      await projectInstaller.uninstall(this.twilioClient,appInfo)
-      await this.twilioClient.serverless.services(appInfo.serviceSid).remove();
-      fs.renameSync(".install",".install.deleted")
+      await projectInstaller.uninstall(twilioapp)
+      await this.twilioClient.serverless.services(twilioapp.serviceSid).remove();
+      fs.renameSync(".twilio-functions",".twilio-functions.deleted")
     }
     catch(error) {
       console.error(`Uninstall failed: ${error}`)

@@ -3,6 +3,7 @@ const { TwilioClientCommand } = require('@twilio/cli-core').baseCommands;
 const path = require('path');
 const { getListOfFunctionsAndAssets } = require('@twilio-labs/serverless-api/dist/utils/fs');
 const { TwilioServerlessApiClient } = require('@twilio-labs/serverless-api');
+const TwilioApp = require('../../twilioapp')
 
 
 class InstallCommand extends TwilioClientCommand {
@@ -18,12 +19,15 @@ class InstallCommand extends TwilioClientCommand {
       console.log(`Install app with service name ${serviceName}`)
 
       const deployResult = await h.deploy.call(this);
-      const appInfo = h.appInfoFromDeployResult(deployResult)
+      console.log(deployResult)
+      deployResult.serviceName = serviceName
+      const appInfo = h.appInfoFromDeployResult.call(this,deployResult)
 
       h.writeInstallInfo(appInfo)
+      const twilioapp = new TwilioApp(this.twilioClient, appInfo)
 
       const projectInstaller = require(path.join(process.cwd(),"installer.js"))
-      await projectInstaller.install(this.twilioClient,appInfo)
+      await projectInstaller.install(twilioapp)
   
 
     }

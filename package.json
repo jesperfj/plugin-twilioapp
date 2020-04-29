@@ -20,7 +20,8 @@
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.14.0",
     "@twilio-labs/serverless-api": "^1.0.3",
-    "@twilio/cli-core": "^4.4.6"
+    "@twilio/cli-core": "^4.4.6",
+    "moment": "^2.24.0"
   },
   "files": [
     "/oclif.manifest.json",
@@ -43,6 +44,15 @@
       },
       "installer:uninstall": {
         "description": "Uninstalls resources specified in ./installer.js"
+      },
+      "installer:getvars": {
+        "description": "Get serverless function variables for this app"
+      },
+      "installer:setvar": {
+        "description": "Set serverless function variable for this app"
+      },
+      "installer:run": {
+        "description": "Run a command specified in ./installer.js"
       }
     }
   }

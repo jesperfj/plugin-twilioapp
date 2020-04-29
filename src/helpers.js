@@ -4,10 +4,11 @@ const { getListOfFunctionsAndAssets } = require('@twilio-labs/serverless-api/dis
 const moment = require('moment');
 const path = require('path');
 const { TwilioServerlessApiClient } = require('@twilio-labs/serverless-api');
+const TwilioApp = require('./twilioapp')
 
 function getInstallInfo() {
   try {
-    return JSON.parse(fs.readFileSync(".install"))
+    return JSON.parse(fs.readFileSync(".twilio-functions"))
   }
   catch(error) {
     return null
@@ -15,21 +16,37 @@ function getInstallInfo() {
 }
 
 function writeInstallInfo(appInfo) {
-  fs.writeFileSync(".install",JSON.stringify({
-    serviceSid: appInfo.serviceSid,
-    serviceName: appInfo.serviceName,
-    domain: appInfo.domain
-  }))
+  fs.writeFileSync(".twilio-functions",JSON.stringify(appInfo))
+}
+
+// copy of getAppInfo()
+async function getTwilioAppFromFunctionsFile(client) {
+  const installInfo = getInstallInfo()
+  if(!installInfo) {
+    throw("No .twilio-functions file")
+  }
+  const services = await client.serverless.services(installInfo.serviceSid).fetch()
+  if(services.length==0) {
+    throw(`App with serviceSid ${installInfo.serviceSid} does not exist. Clean up .twilio-functions file`)
+  }
+
+  return new TwilioApp(client, {
+    serviceSid: installInfo.serviceSid,
+    serviceName: installInfo.serviceName,
+    environmentSid: installInfo.environmentSid,
+    domain: installInfo.domain
+  })
+
 }
 
 async function getAppInfo() {
   const installInfo = getInstallInfo()
   if(!installInfo) {
-    throw error("getAppInfo failed: No .install file")
+    throw error("getAppInfo failed: No .twilio-functions file")
   }
   const services = await this.twilioClient.serverless.services(installInfo.serviceSid).fetch()
   if(services.length==0) {
-    throw error(`getAppInfo failed: App with serviceSid ${installInfo.serviceSid} does not exist. Clean up .installl file`)
+    throw error(`getAppInfo failed: App with serviceSid ${installInfo.serviceSid} does not exist. Clean up .twilio-functions file`)
   }
 
   //const appInstance = await this.twilioClient.serverless.services(app.sid);
@@ -44,11 +61,19 @@ async function getAppInfo() {
 }
 
 function appInfoFromDeployResult(deployResult) {
-  return {
+  let appInfo = {
+    projects: {},
     serviceSid: deployResult.serviceSid,
+    latestBuild: deployResult.buildSid,
     serviceName: deployResult.serviceName,
+    environmentSid: deployResult.environmentSid,
     domain: deployResult.domain
   }
+  appInfo.projects[this.twilioClient.accountSid] = {
+    serviceSid: deployResult.serviceSid,
+    latestBuild: deployResult.buildSid
+  }
+  return appInfo
 }
 
 function getServiceName() {
@@ -110,7 +135,7 @@ async function deploy() {
   if(installInfo) {
     const service =  twilioClient.serverless.services.find({sid: installInfo.serviceSid })
     if(service.length == 0) {
-      console.log(`Service ${installInfo.serviceSid} not found. Delete .install manually`)
+      console.log(`Service ${installInfo.serviceSid} not found. Delete .twilio-functions manually`)
       return
     }
     console.log(`Deploying to exising service ${installInfo.serviceSid}`)
@@ -130,6 +155,7 @@ async function deploy() {
 module.exports = {
   deploy,
   getAppInfo,
+  getTwilioAppFromFunctionsFile,
   getInstallInfo,
   appInfoFromDeployResult,
   writeInstallInfo,
