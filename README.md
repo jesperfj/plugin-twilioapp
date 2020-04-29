@@ -1,6 +1,6 @@
 # TwilioApp CLI Plugin
 
-This Twilio CLI plugin is a fully functional "concept" plugin that explores the idea of a "Twilio App" as a collection of assets along with an installation and uninstallation recipe that makes it quick and easy to share, evolve, deploy and remove Communications "apps" built on Twilio.
+This Twilio CLI plugin is a fully functional "concept" plugin that explores the idea of a "Twilio App" as a collection of assets along with an installation and uninstallation recipe that makes it quick and easy to share, evolve, deploy and remove Communications "apps" built on Twilio. Examples of apps can be a Video browser app, an interactive voice response (IVR) service, a softphone, a PBX-style call routing service, a voice mail service, etc. Anything you can do with code on Twilio can be packaged as an "app".
 
 The "reference" implementation using this plugin right now is github.com/jesperfj/twilio-ivr-inbound. If you want to see this plugin in action, start with that project.
 
