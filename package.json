@@ -29,30 +29,30 @@
     "/package-lock.json"
   ],
   "oclif": {
-    "name": "installer",
+    "name": "twilioapp",
     "commands": "./src/commands",
     "bin": "twilio",
     "devPlugins": [
       "@oclif/plugin-help"
     ],
     "topics": {
-      "installer": {
+      "twilioapp": {
         "description": "A plugin to install and uninstall collections of Twilio resources"
       },
-      "installer:install": {
-        "description": "Installs resources specified in ./installer.js"
+      "twilioapp:install": {
+        "description": "Installs resources specified in ./twilioapp.js"
       },
-      "installer:uninstall": {
-        "description": "Uninstalls resources specified in ./installer.js"
+      "twilioapp:uninstall": {
+        "description": "Uninstalls resources specified in ./twilioapp.js"
       },
-      "installer:getvars": {
+      "twilioapp:getvars": {
         "description": "Get serverless function variables for this app"
       },
-      "installer:setvar": {
+      "twilioapp:setvar": {
         "description": "Set serverless function variable for this app"
       },
-      "installer:run": {
-        "description": "Run a command specified in ./installer.js"
+      "twilioapp:run": {
+        "description": "Run a command specified in ./twilioapp.js"
       }
     }
   }
