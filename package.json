@@ -1,12 +1,12 @@
 {
-  "name": "plugin-installer",
+  "name": "plugin-twilioapp",
   "version": "0.0.1",
   "description": "A Twilio-CLI plugin for installing and uninstalling Twilio apps",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
   },
-  "repository": "https://github.com/jesperfj/plugin-installer",
+  "repository": "https://github.com/jesperfj/plugin-twilioapp",
   "scripts": {
     "test": "TZ=utc jest",
     "postpack": "rm -f oclif.manifest.json",
