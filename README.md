@@ -20,7 +20,7 @@ The commands implemented by this plugin are meant to be run from the root of an 
 
 `twilio twilioapp:install` does the following:
 
-1. Run the equivalent of [`twilio serverless:deploy`](https://github.com/twilio-labs/plugin-serverless) to create a new Twilio Serverless service and deploy functions and assets from the current directory to this new serverless service. This places a `.twilio-functions` in the current directory with service SID and other metadata about the installation.
+1. Run the equivalent of [`twilio serverless:deploy`](https://github.com/twilio-labs/plugin-serverless) to create a new Twilio Serverless service and deploy functions and assets from the current directory to this new serverless service. This places a `.twilio-functions` file in the current directory with service SID and other metadata about the installation.
 2. Run the `install` function in `twilioapp.js`
 
 `twilio twilioapp:uninstall` does the following:
