@@ -1,8 +1,8 @@
 # TwilioApp CLI Plugin
 
-This Twilio CLI plugin is a fully functional "concept" plugin that explores the idea of a "Twilio App" as a collection of assets along wiht an installation and uninstallation recipe that makes it quick and easy to share, evolve, deploy and remove Communications "apps" built on Twilio.
+This Twilio CLI plugin is a fully functional "concept" plugin that explores the idea of a "Twilio App" as a collection of assets along with an installation and uninstallation recipe that makes it quick and easy to share, evolve, deploy and remove Communications "apps" built on Twilio. Examples of apps can be a Video browser app, an interactive voice response (IVR) service, a softphone, a PBX-style call routing service, a voice mail service, etc. Anything you can do with code on Twilio can be packaged as an "app".
 
-The "reference" implementation using this plugin right now is github.com/jesperfj/twilio-ivr-inbound. If you want to see this plugin in action, start with that project.
+The "reference" implementation using this plugin right now is [twilio-ivr-inbound](github.com/jesperfj/twilio-ivr-inbound). If you want to see this plugin in action, start with that project.
 
 ## Installing the plugin
 
@@ -20,7 +20,7 @@ The commands implemented by this plugin are meant to be run from the root of an 
 
 `twilio twilioapp:install` does the following:
 
-1. Run the equivalent of [`twilio serverless:deploy`](https://github.com/twilio-labs/plugin-serverless) to create a new Twilio Serverless service and deploy functions and assets from the current directory to this new serverless service. This places a `.twilio-functions` in the current directory with service SID and other metadata about the installation.
+1. Run the equivalent of [`twilio serverless:deploy`](https://github.com/twilio-labs/plugin-serverless) to create a new Twilio Serverless service and deploy functions and assets from the current directory to this new serverless service. This places a `.twilio-functions` file in the current directory with service SID and other metadata about the installation.
 2. Run the `install` function in `twilioapp.js`
 
 `twilio twilioapp:uninstall` does the following:
