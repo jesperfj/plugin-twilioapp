@@ -10,6 +10,7 @@ class TwilioApp {
   }
 
   get prefix() { return `${this.serviceName}-${this.serviceSid}` }
+  get accountSid() { return this.twilioClient.accountSid }
 
   async setVariables(vars) {
     for(const [k,v] of Object.entries(vars)) {

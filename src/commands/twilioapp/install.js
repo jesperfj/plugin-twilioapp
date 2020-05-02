@@ -7,6 +7,8 @@ const TwilioApp = require('../../twilioapp')
 
 
 class InstallCommand extends TwilioClientCommand {
+  static strict = false
+
   async run() {
     try {
       await super.run();
@@ -15,6 +17,7 @@ class InstallCommand extends TwilioClientCommand {
         return
       }
 
+      const {argv} = this.parse()
       const serviceName = h.getServiceName()
       console.log(`Install app with service name ${serviceName}`)
 
@@ -26,8 +29,8 @@ class InstallCommand extends TwilioClientCommand {
       h.writeInstallInfo(appInfo)
       const twilioapp = new TwilioApp(this.twilioClient, appInfo)
 
-      const projectInstaller = require(path.join(process.cwd(),"installer.js"))
-      await projectInstaller.install(twilioapp)
+      const projectInstaller = require(path.join(process.cwd(),"twilioapp.js"))
+      await projectInstaller.install(twilioapp,argv)
   
 
     }

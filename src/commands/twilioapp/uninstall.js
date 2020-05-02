@@ -7,10 +7,10 @@ class UninstallCommand extends TwilioClientCommand {
   async run() {
     try {
       await super.run();
-      const appInfo = await h.getAppInfo.call(this)
+      const {argv} = this.parse()
       const twilioapp = await h.getTwilioAppFromFunctionsFile(this.twilioClient)
       const projectInstaller = require(path.join(process.cwd(),"twilioapp.js"))
-      await projectInstaller.uninstall(twilioapp)
+      await projectInstaller.uninstall(twilioapp,argv)
       await this.twilioClient.serverless.services(twilioapp.serviceSid).remove();
       fs.renameSync(".twilio-functions",".twilio-functions.deleted")
     }
