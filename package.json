@@ -21,7 +21,7 @@
     "@oclif/config": "^1.14.0",
     "@twilio-labs/serverless-api": "^1.0.3",
     "@twilio/cli-core": "^4.4.6",
-    "moment": "^2.24.0"
+    "moment": "^2.29.4"
   },
   "files": [
     "/oclif.manifest.json",
